@@ -49,7 +49,7 @@ public class TimeService extends Service {
 
 //        String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(readingFormat);
             sendBroadcastMessage(currentDateTimeString);
-            handler.postDelayed(this, 10000); // 10 seconds
+            handler.postDelayed(this, 1000); // 10 seconds
         }
     };
 
