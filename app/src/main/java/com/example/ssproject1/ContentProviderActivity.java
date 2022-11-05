@@ -19,7 +19,6 @@ import java.util.List;
 
 public class ContentProviderActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +42,8 @@ public class ContentProviderActivity extends AppCompatActivity {
         fetchData();
         // displaying a toast message
         Toast.makeText(getBaseContext(), "New Record Inserted", Toast.LENGTH_LONG).show();
+        ((EditText) findViewById(R.id.name)).getText().clear();
+        ((EditText) findViewById(R.id.phone)).getText().clear();
     }
 
 
@@ -73,17 +74,29 @@ public class ContentProviderActivity extends AppCompatActivity {
 //    }
 
     public void onClickDelete(View view){
-        String id = ((EditText)findViewById(R.id.delete_id)).getText().toString();
-
-        deleteData(id);
-
-    }
-
-    public void deleteData(String id){
-        getContentResolver().delete(ContactsContentProvider.CONTENT_URI, id,null);
+//        getContentResolver().delete(ContactsContentProvider.CONTENT_URI, null,null);
+        clearData();
         fetchData();
+        ((EditText) findViewById(R.id.name)).getText().clear();
+        ((EditText) findViewById(R.id.phone)).getText().clear();
     }
 
+    @SuppressLint("Range")
+    public void clearData(){
+        // creating a cursor object of the
+        // content URI
+        Cursor cursor = getContentResolver().query(Uri.parse("content://com.example.contacts.provider/contacts"), null, null, null, null);
+
+        if(cursor.moveToFirst()) {
+            StringBuilder strBuild=new StringBuilder();
+            while (!cursor.isAfterLast()) {
+                String id = cursor.getString(cursor.getColumnIndex("id"));
+                getContentResolver().delete(ContactsContentProvider.CONTENT_URI, id,null);
+                cursor.moveToNext();
+            }
+        }
+
+    }
 
     @SuppressLint("Range")
     public void fetchData(){

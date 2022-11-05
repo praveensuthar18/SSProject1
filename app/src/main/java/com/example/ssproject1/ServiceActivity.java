@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ServiceActivity extends AppCompatActivity {
 
     TextView timeView;
@@ -28,7 +32,18 @@ public class ServiceActivity extends AppCompatActivity {
                     public void onReceive(Context context, Intent intent) {
                         String curr_time = intent.getStringExtra(TimeService.CURR_TIME);
 
-                        timeView.setText("Current Time: " + curr_time);
+                        SimpleDateFormat readingFormat = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
+                        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
+
+                        try {
+                            Date date = readingFormat.parse(curr_time);
+                            timeView.setText("Current Time: " + outputFormat.format(date));
+                        } catch (ParseException e) {
+
+                            e.printStackTrace();
+                        }
+
+
                     }
                 }, new IntentFilter(TimeService.ACTION_TIME_BROADCAST)
         );

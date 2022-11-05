@@ -56,8 +56,8 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="83dp"
-        android:layout_height="27dp"
+        android:layout_width="126dp"
+        android:layout_height="25dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:text="Current Time"
@@ -81,7 +81,7 @@
         android:layout_width="104dp"
         android:layout_height="23dp"
         android:layout_marginStart="48dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="psuthar4@asu.edu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="24dp"
-        android:text="Bhargav"
+        android:text="bsarvari@asu.edu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.os.IBinder;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TimeService extends Service {
@@ -14,6 +15,8 @@ public class TimeService extends Service {
     public static final String
             ACTION_TIME_BROADCAST = TimeService.class.getName() + "TimeBroadcast",
             CURR_TIME = "";
+
+    public static final SimpleDateFormat readingFormat = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
 
     private final Handler handler = new Handler();
 
@@ -33,14 +36,18 @@ public class TimeService extends Service {
     public void onCreate() {
         super.onCreate();
         System.out.println("In Timeservice oncreate method...");
-        String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
+        String currentDateTimeString = readingFormat.format(new Date());
+
+//        String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(readingFormat);
         sendBroadcastMessage(currentDateTimeString);
 
     }
 
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
-            String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
+            String currentDateTimeString = readingFormat.format(new Date());
+
+//        String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(readingFormat);
             sendBroadcastMessage(currentDateTimeString);
             handler.postDelayed(this, 10000); // 10 seconds
         }
